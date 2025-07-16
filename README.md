@@ -16,9 +16,9 @@ dynamic number of images from camera via ROS2 and colorize the point cloud with 
 ### Build
 
 ```bash
-mkdir -p ~/color-point-cloud_ws/src
-cd ~/color-point-cloud_ws/src
-git clone https://github.com/leo-drive/color-point-cloud
+mkdir -p ~/color_lidar_ws/src
+cd ~/color_lidar_ws/src
+git clone https://github.com/Longxiaoze/color-point-cloud.git
 cd ..
 colcon build --symlink-install
 ```
@@ -28,7 +28,7 @@ colcon build --symlink-install
 ### Run
 
 ```bash
-source ~/color-point-cloud_ws/install/setup.bash
+source ~/color_lidar_ws/install/setup.bash
 ros2 launch color_point_cloud color_point_cloud.launch.xml
 ```
 
@@ -36,12 +36,16 @@ ros2 launch color_point_cloud color_point_cloud.launch.xml
 
 Change parameters in `color_point_cloud.launch.xml` to fit your environment.
 
-| Parameter | Description                             | 
-| :-------- |:----------------------------------------| 
-| `point_cloud_topic` | your lidar topic as `string`            |
-| `point_cloud_frame_id` | your lidar topic as `string`            |
-| `camera_topics` | array of your camera topics as `string` |
-| `image_type` | your image format `enum`                |
+| Parameter | Description                             |  example |
+| :-------- |:----------------------------------------| :------------------|
+| `point_cloud_topic` | your lidar topic as `string`            | `/points_raw`  |
+| `point_cloud_frame_id` | The coordinate system/frame in which the point cloud data is located.| check header in `/front_camera/camera_info` |
+| `camera_topics` | array of your camera topics as `string` | `[/front_camera,...]` |
+| `image_type` | your image format `enum`                | `0:RAW, 1:RECTIFIED` |
+| `image_topic_last_name` | `image_topic` after `camera_topics` | `/image_raw` |
+| `camera_info_topic_last_name` | `camera_info_topic` after `camera_topics` | `/camera_info` |
+
+for example: /front_camera/camera_info + /front_camera/image_raw + /points_raw
 
 ### Result
 
