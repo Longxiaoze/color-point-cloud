@@ -64,4 +64,4 @@ Change parameters in `color_point_cloud.launch.xml` to fit your environment.
 <p align='center'>
     <img src="image/slam_0.png" alt="slam" width="400"/>
     <img src="image/slam_1.png" alt="slam" width="400"/>
-</p>
+</p>owner:Longxiaoze 

@@ -16,25 +16,34 @@ namespace color_point_cloud {
             // timeout_sec
             this->declare_parameter<double>("timeout_sec", 0.1);
             timeout_sec_ = this->get_parameter("timeout_sec").as_double();
+            RCLCPP_INFO(this->get_logger(), "timeout_sec_: %f", timeout_sec_);
 
             this->declare_parameter<std::string>("point_cloud_topic", "/points_raw");
             point_cloud_topic_ = this->get_parameter("point_cloud_topic").as_string();
+            RCLCPP_INFO(this->get_logger(), "point_cloud_topic_: %s", point_cloud_topic_.c_str());
 
-            this->declare_parameter<std::string>("point_cloud_frame_id", "lidar");
+            this->declare_parameter<std::string>("point_cloud_frame_id", "livox_frame");
             point_cloud_frame_id_ = this->get_parameter("point_cloud_frame_id").as_string();
+            RCLCPP_INFO(this->get_logger(), "point_cloud_frame_id_: %s", point_cloud_frame_id_.c_str());
 
             this->declare_parameter<int>("image_type", 0);
             image_type_ = static_cast<ImageType>(this->get_parameter("image_type").as_int());
+            RCLCPP_INFO(this->get_logger(), "image_type_: %d", static_cast<int>(image_type_));
 
             this->declare_parameter<std::string>("image_topic_last_name", "/image_raw");
             image_topic_last_name_ = this->get_parameter("image_topic_last_name").as_string();
+            RCLCPP_INFO(this->get_logger(), "image_topic_last_name_: %s", image_topic_last_name_.c_str());
 
             this->declare_parameter<std::string>("camera_info_topic_last_name", "/camera_info");
             camera_info_topic_last_name_ = this->get_parameter("camera_info_topic_last_name").as_string();
-
+            RCLCPP_INFO(this->get_logger(), "camera_info_topic_last_name_: %s", camera_info_topic_last_name_.c_str());
             // camera_topics
             this->declare_parameter<std::vector<std::string>>("camera_topics", std::vector<std::string>());
             camera_topics_ = this->get_parameter("camera_topics").as_string_array();
+            if (camera_topics_.empty()) {
+                RCLCPP_ERROR(this->get_logger(), "No camera topics provided, please set 'camera_topics' parameter.");
+                return;
+            }
 
             for (auto &camera_topic: camera_topics_) {
                 RCLCPP_INFO(this->get_logger(), "camera_topic: %s", camera_topic.c_str());
@@ -71,8 +80,12 @@ namespace color_point_cloud {
                     point_cloud_topic_, rclcpp::SensorDataQoS(),
                     std::bind(&ColorPointCloud::point_cloud_callback, this, std::placeholders::_1));
 
+            // point_cloud_publisher_ = this->create_publisher<sensor_msgs::msg::PointCloud2>(
+            //         "/points_color", rclcpp::SensorDataQoS());
+            rclcpp::QoS qos_profile(10);
+            qos_profile.reliability(rclcpp::ReliabilityPolicy::Reliable);
             point_cloud_publisher_ = this->create_publisher<sensor_msgs::msg::PointCloud2>(
-                    "/points_color", rclcpp::SensorDataQoS());
+                        "/points_color", qos_profile);
         }
 
         // Set timer

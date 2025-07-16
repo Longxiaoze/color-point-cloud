@@ -1,0 +1,27 @@
+# pcd_path: "/home/longxiaoze/color-point-cloud_ws/src/color-point-cloud/scripts/extracted/pointclouds/1741149457_557243764.ply"
+pcd_path: "/home/longxiaoze/color-point-cloud_ws/src/color-point-cloud/scripts/extracted/pointclouds/merged.ply"
+img_path: "/home/longxiaoze/color-point-cloud_ws/src/color-point-cloud/scripts/extracted/images/1741149457_608795537.png"
+
+camera_matrix:
+  - [401.74007,   0.0,       315.97372]
+  - [  0.0,     536.59449,   226.14287]
+  - [  0.0,       0.0,         1.0    ]
+
+dist_coeffs:
+  - -0.356217
+  -  0.108598
+  - -0.000379
+  -  0.00208
+  -  0.0
+
+R:
+  # row0 = Camera x 轴在 LiDAR 系下的表达：Camera x 向右 = -LiDAR y 向左
+  - [ 0, -1,  0]
+  # row1 = Camera y 轴在 LiDAR 系下的表达：Camera y 向下 = -LiDAR z 向上
+  - [ 0,  0, -1]
+  # row2 = Camera z 轴在 LiDAR 系下的表达：Camera z 向前 =  LiDAR x 向前
+  - [ 1,  0,  0]
+t:
+  -  0.08945
+  -  0.0
+  -  -0.176825
