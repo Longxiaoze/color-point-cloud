@@ -40,7 +40,7 @@ Change parameters in `color_point_cloud.launch.xml` to fit your environment.
 | :-------- |:----------------------------------------| :------------------|
 | `tf2_ros` | The extrinsic parameters (quaternion) from LiDAR to camera. | ---  |
 | `point_cloud_topic` | your lidar topic as `string`            | `/points_raw`  |
-| `point_cloud_frame_id` | The coordinate system/frame in which the point cloud data is located.| set the same name `livox_frame` |
+| `point_cloud_frame_id` | The coordinate system/frame in which the point cloud data is located.| set the same name in `tf2_ros` |
 | `camera_topics` | array of your camera topics as `string` | `[/front_camera,...]` |
 | `image_type` | your image format `enum`                | `0:RAW, 1:RECTIFIED` |
 | `image_topic_last_name` | `image_topic` after `camera_topics` | `/image_raw` |
