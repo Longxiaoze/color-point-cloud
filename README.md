@@ -46,7 +46,7 @@ Change parameters in `color_point_cloud.launch.xml` to fit your environment.
 | `image_topic_last_name` | `image_topic` after `camera_topics` | `/image_raw` |
 | `camera_info_topic_last_name` | `camera_info_topic` after `camera_topics` | `/camera_info` |
 
-for example: /front_camera/camera_info + /front_camera/image_raw + /points_raw
+for example: `/front_camera/camera_info + /front_camera/image_raw + /points_raw`
 
 ### Result
 
